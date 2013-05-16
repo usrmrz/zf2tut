@@ -32,6 +32,7 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
+                            <li class="active"><a href="<?php echo $this->url('album') ?>"><?php echo $this->translate('Albums') ?></a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -41,7 +42,7 @@
             <?php echo $this->content; ?>
             <hr>
             <footer>
-                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
+                <p>&copy; 2013 <?php if(date('Y') !== '2013'){echo '- ' . date('Y');} ?> <?php echo sprintf($this->translate('Powered by %sZend Framework%s version %s.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?> <?php echo $this->translate('All rights reserved.') ?></p>
             </footer>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
