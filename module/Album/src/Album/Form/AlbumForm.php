@@ -20,6 +20,7 @@ class AlbumForm extends Form
             'name' => 'artist',
             'attributes' => array(
                 'type' => 'text',
+                'value' => 'Add artist here',
             ),
             'options' => array(
                 'label' => 'Artist',

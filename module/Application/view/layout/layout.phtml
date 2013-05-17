@@ -2,7 +2,7 @@
 
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
@@ -23,16 +23,17 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                    <a class="btn btn-navbar">
+                        <span class="icon-bar">&nbsp;</span>
+                        <span class="icon-bar">&nbsp;</span>
+                        <span class="icon-bar">&nbsp;</span>
                     </a>
                     <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Skeleton Application') ?></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
                             <li class="active"><a href="<?php echo $this->url('album') ?>"><?php echo $this->translate('Albums') ?></a></li>
+                            <li class="active"><a href="<?php echo $this->url('blog') ?>"><?php echo $this->translate('Blog') ?></a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -40,10 +41,10 @@
         </div>
         <div class="container">
             <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; 2013 <?php if(date('Y') !== '2013'){echo '- ' . date('Y');} ?> <?php echo sprintf($this->translate('Powered by %sZend Framework%s version %s.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?> <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
+            <hr />
+            <div>
+                <p>&copy; 2013 <?php if(date('Y') !== '2013'){echo '- ' . date('Y');} ?> <?php echo sprintf($this->translate('Powered by %sZend Framework%s version %s.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication">', '</a>', \Zend\Version\Version::VERSION) ?> <?php echo $this->translate('All rights reserved.') ?></p>
+            </div>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
     </body>
