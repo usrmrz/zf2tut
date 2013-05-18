@@ -43,7 +43,7 @@
             <?php echo $this->content; ?>
             <hr />
             <div>
-                <p>&copy; 2013 <?php if(date('Y') !== '2013'){echo '- ' . date('Y');} ?> <?php echo sprintf($this->translate('Powered by %sZend Framework%s version %s.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication">', '</a>', \Zend\Version\Version::VERSION) ?> <?php echo $this->translate('All rights reserved.') ?></p>
+                <p>&copy; 2012 <?php if(date('Y') > 2012){echo '- ' . date('Y');} ?> <?php echo sprintf($this->translate('Powered by %sZend Framework%s version %s.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication">', '</a>', \Zend\Version\Version::VERSION) ?> <?php echo $this->translate('All rights reserved.') ?></p>
             </div>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
