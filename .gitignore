@@ -8,3 +8,6 @@ nbproject
 .settings
 composer.lock
 vendor/bin
+module/PhlyBlog
+module/PhlyCommon
+module/Product

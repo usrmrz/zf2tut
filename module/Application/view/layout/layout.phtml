@@ -29,21 +29,30 @@
                         <span class="icon-bar">&nbsp;</span>
                     </a>
                     <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Skeleton Application') ?></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                            <li class="active"><a href="<?php echo $this->url('album') ?>"><?php echo $this->translate('Albums') ?></a></li>
-                            <li class="active"><a href="<?php echo $this->url('blog') ?>"><?php echo $this->translate('Blog') ?></a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
+                    <?php echo $this->navigation('navigation')
+                            ->menu()
+                            ->setMinDepth(0)
+                            ->setMaxDepth(0)
+                            ->setUlClass('nav')
+                            ->render();
+                    ?>
+<!--                    <div class="nav-collapse collapse">-->
+<!--                        <ul class="nav">-->
+<!--                            <li class="active"><a href="--><?php //echo $this->url('home') ?><!--">--><?php //echo $this->translate('Home') ?><!--</a></li>-->
+<!--                            <li class="active"><a href="--><?php //echo $this->url('album') ?><!--">--><?php //echo $this->translate('Albums') ?><!--</a></li>-->
+<!--                            <li class="active"><a href="--><?php //echo $this->url('blog') ?><!--">--><?php //echo $this->translate('Blog') ?><!--</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--/.nav-collapse -->
                 </div>
             </div>
         </div>
         <div class="container">
+            <?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0); ?>
             <?php echo $this->content; ?>
             <hr />
             <div>
-                <p>&copy; 2012 <?php if(date('Y') > 2012){echo '- ' . date('Y');} ?> <?php echo sprintf($this->translate('Powered by %sZend Framework%s version %s.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication">', '</a>', \Zend\Version\Version::VERSION) ?> <?php echo $this->translate('All rights reserved.') ?></p>
+                <p>&copy; 2013 <?php if(date('Y') > 2013){echo '- ' . date('Y');} ?> <?php echo sprintf($this->translate('Powered by %sZend Framework%s version %s.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication">', '</a>', \Zend\Version\Version::VERSION) ?> <?php echo $this->translate('All rights reserved.') ?></p>
             </div>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>

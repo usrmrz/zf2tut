@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2013-05-17 18:05+0200\n"
+"PO-Revision-Date: 2013-05-19 12:55+0200\n"
 "Last-Translator: \n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
 msgid "Skeleton Application"
-msgstr "Tutorial"
+msgstr "Просто так"
 
 #: ../view/layout/layout.phtml:34
 msgid "Home"
@@ -30,6 +30,10 @@ msgstr "Альбомы"
 #: ../view/layout/layout.phtml:100
 msgid "Blog"
 msgstr "Блог"
+
+#: ../view/layout/layout.phtml:101
+msgid "Simple Module"
+msgstr "Просто Модуль"
 
 #: ../view/layout/layout.phtml:50
 msgid "All rights reserved."

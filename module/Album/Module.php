@@ -3,6 +3,7 @@
 namespace Album;
 
 use Album\Model\AlbumTable;
+//use Zend\Db\Sql\Sql;
 
 class Module
 {
@@ -36,6 +37,13 @@ class Module
 
                     return $table;
                 },
+//                'Sql' => function($sm)
+//                {
+//                    $dbAdapter = $sm->get('Zend\Db\Sql\Sql');
+//                    $sql = new Sql($dbAdapter);
+//
+//                    return $sql;
+//                },
             ),
         );
     }
