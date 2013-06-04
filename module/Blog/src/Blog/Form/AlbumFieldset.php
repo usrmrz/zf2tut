@@ -2,27 +2,27 @@
 
 namespace Blog\Form;
 
-use Zend\Form\Form;
+//use Zend\Form\Form;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Stdlib\Hydrator\ClassMethods;
+//use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Stdlib\Hydrator\ObjectProperty as ObjectPropertyHydrator;
 use Blog\Model\Album as AlbumEntity;
-use Zend\Form\View\Helper\Form as HelperForm;
 
-//use Blog\Form\Artist;
 
-class Album extends Fieldset implements InputFilterProviderInterface
+class AlbumFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function __construct()
     {
         parent::__construct('album');
-        $this->setHydrator(new ClassMethods(false))->setObject(new AlbumEntity());
-//        echo var_dump($a);exit;
+//        $this->setHydrator(new ClassMethods(false))->setObject(new AlbumEntity());
+        $this->setHydrator(new ObjectPropertyHydrator())->setObject(new AlbumEntity());
 
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
                 'type' => 'hidden',
+//                'allow_empty' => true,
             ),
         ));
 //        $this->setLabel('Album');
@@ -38,20 +38,28 @@ class Album extends Fieldset implements InputFilterProviderInterface
         ));
 
         $this->add(array(
+            'name' => 'artist_id',
+            'attributes' => array(
+                'type' => 'hidden',
+//                'allow_empty' => true,
+            ),
+        ));
+
+        $this->add(array(
             'type' => 'Blog\Form\Artist',
             'name' => 'artist',
             'options' => array(
                 'label' => 'Name of Artist'
-            )
+            ),
+
         ));
     }
 
     public function getInputFilterSpecification()
     {
         return array(
-            'name' => array(
-                'required' => true,
-            )
-        );
+            'id' => array('required' => false,),
+            'name' => array('required' => true,),
+            'artist_id' => array('required' => false,),);
     }
 }

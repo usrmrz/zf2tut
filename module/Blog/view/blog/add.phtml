@@ -1,0 +1,18 @@
+<?php
+$title = 'Добавить альбом';
+$this->headTitle($title);
+?>
+<h3><?php echo $this->escapeHtml($title); ?></h3>
+<?php
+//echo '<ul><li>';
+$form = $this->form;
+$form->setAttribute('id','add_form');
+$form->setAttribute('action', $this->url('blog', array('action' => 'add')))->prepare();
+echo $this->form()->openTag($form) . PHP_EOL;
+$album = $form->get('album');
+echo '<div>' . $this->formRow($album->get('title')) . '</div>' . PHP_EOL;
+$artist = $album->get('artist');
+echo '<div>' . $this->formRow($artist->get('name')) . '</div>' . PHP_EOL;
+echo '<div>' . $this->formElement($form->get('submit')->setValue('ADD ALBUM')) . '</div>' . PHP_EOL;
+echo $this->form()->closeTag($form) . PHP_EOL;
+

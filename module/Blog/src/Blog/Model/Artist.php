@@ -9,15 +9,19 @@ use Zend\InputFilter\InputFilterInterface;
 
 class Artist
 {
-    public $id;
-    public $name;
+    protected $id;
+    protected $name;
 //    protected $inputFilter;
 
-//    public function exchangeArray($data)
-//    {
-//        $this->id = (isset($data['id'])) ? $data['id'] : null;
-//        $this->name = (isset($data['name'])) ? $data['name'] : null;
-//    }
+    public function exchangeArray($data)
+    {
+        $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->name = (isset($data['name'])) ? $data['name'] : null;
+    }
+
+    public function getArrayCopy(){
+        return get_object_vars($this);
+    }
 
     public function getId()
     {

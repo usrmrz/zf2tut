@@ -11,15 +11,23 @@ class Album
 {
     protected $id;
     protected $title;
+    protected $artist_id;
     protected $artist;
-
 //    protected $inputFilter;
+
+    public function __construct(){
+        $this->artist = new Artist();
+    }
 
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
         $this->title = (isset($data['title'])) ? $data['title'] : null;
-        $this->artist = (isset($data['artist_id'])) ? $data['artist_id'] : null;
+        $this->artist_id = (isset($data['artist_id'])) ? $data['artist_id'] : null;
+    }
+
+    public function getArrayCopy(){
+        return get_object_vars($this);
     }
 
     public function getId()
@@ -49,8 +57,9 @@ class Album
         return $this->artist;
     }
 
-    public function setArtist($artist){
+    public function setArtist(Artist $artist){
         $this->artist = $artist;
+//        $this->artist->setName($name);
         return $this;
     }
 }
