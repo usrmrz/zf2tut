@@ -4,68 +4,54 @@ namespace Blog\Model;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\TableGateway\AbstractTableGateway;
-
-//use Blog\Model\Album;
-use Blog\Model\Artist;
 use Zend\Db\Sql;
+use Blog\Model\Artist;
 
-//use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\ResultSet\ResultSet;
 
 
-class ArtistMapper extends AbstractTableGateway
+class ArtistMapper extends CommonMapper
 {
     protected $table = 'artist';
 
     public function __construct(Adapter $adapter)
     {
         $this->adapter = $adapter;
-
-//        $this->resultSetPrototype = new ResultSet();
-//        $this->resultSetPrototype->setArrayObjectPrototype(new Album());
-//        $this->resultSetPrototype->setArrayObjectPrototype(new Artist());
-
         $this->initialize();
     }
 
-    public function SelectTable()
-    {
-        $select = new Sql\Select();
-        return $select->from($this->table);
+    public function getArtistIdByName($name){
+        $select = $this->SelectTable()
+            ->columns(array('id' => 'id', 'name' => 'name'))
+            ->where(array('name' => $name));
+//        $result = iterator_to_array($this->executeSelect($select));
+        $statement = $this->adapter->createStatement();
+        $select->prepareStatement($this->adapter, $statement);
+        $result = iterator_to_array($statement->execute());
+//        var_dump(array_count_values($result[0]));
+//        var_dump($result[0]);
+        return $result[0]['id'];
     }
-
-//    public function statementExecute($select)
-//    {
-//        $statement = $this->adapter->createStatement();
-//        $select->prepareStatement($this->adapter, $statement);
-//        return $result = $statement->execute();
-//    }
-
-    public function getLastId()
-    {
-        $LastId = $this->executeSelect($this->SelectTable()->columns(array('id' => new Sql\Expression('COUNT(id)'))));
-        return $LastId;
-    }
-
-    public function getColumnCount($column)
-    {
-        $count = iterator_to_array($this->executeSelect($this->SelectTable()
-            ->columns(array($column => new Sql\Expression('COUNT(' . $column . ')')))));
-//        $LastId = iterator_to_array($LastId);
-//        var_dump($LastId[0]);
-        return $count[0];
-    }
-
-// TODO: check Artist name in table
 
     public function saveArtist(Artist $artist)
     {
-//       var_dump($artist);
         $data = array(
             'name' => $artist->getName(),
         );
 //        var_dump($data);
-        $this->insert($data);
-
+        $select = new Sql\Select;
+        $select->from($this->table)
+            ->columns(array('name' => 'name'))
+            ->where->like('name', $artist->getName());
+        $statement = $this->adapter->createStatement();
+//        var_dump($select);
+        $select->prepareStatement($this->adapter, $statement);
+        $result = iterator_to_array($statement->execute());
+//        var_dump($result);
+        if (!$result){
+            $this->insert($data);
+//            var_dump($data);
+        }
     }
 }
 

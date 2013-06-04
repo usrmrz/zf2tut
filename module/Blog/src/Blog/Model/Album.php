@@ -52,6 +52,17 @@ class Album
         return $this;
     }
 
+    public function getArtistId()
+    {
+        return $this->artist_id;
+    }
+
+    public function setArtistId($artist_id)
+    {
+        $this->artist_id = $artist_id;
+        return $this;
+    }
+
     public function getArtist()
     {
         return $this->artist;

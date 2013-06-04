@@ -1,6 +1,7 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
 }
 
 .zf-green {
@@ -36,18 +37,57 @@ div.container a.brand {
     padding: 8px 20px 12px 40px;
 }
 
-#album_table span {
-    display: block;
-    width: 150px;
+#add_form {
+    width: 350px;
+}
+
+#add_form label {
+    font-size: 1.2em;
+    display: inline-block;
+    width: 120px;
+
+    /*width: 300px;*/
+    /*float: left;*/
+}
+#add_form input {
+    /*font-size: 1.2em;*/
+    /*margin-left: 130px;*/
+    /*display: inline;*/
+    /*width: 130px;*/
 
     /*width: 300px;*/
     /*float: left;*/
 }
 
-#album_table input[]{
-display: block;
-/*width: 150px;*/
-float: left;
+#add_form .btn {
+    margin-top: 25px;
 }
 
+/*#album_table input[]{*/
+/*display: block;*/
+/*width: 150px;*/
+/*float: left;*/
+/*}*/
+.table td {
+    /*font-size: 1.3em;*/
+    /*font-weight: bold;*/
+    /*margin-right: 20px;*/
+}
+
+.table td>span  {
+    font-size: 1.1em;
+    font-weight: normal;
+    font-style: italic;
+    display: block;
+    /*font-weight: bold;*/
+    margin-right: 20px;
+}
+
+.table td {
+    /*font-size: 1.1em;*/
+    font-weight: bold;
+    /*display: block;*/
+    /*font-weight: bold;*/
+    /*margin-right: 20px;*/
+}
 

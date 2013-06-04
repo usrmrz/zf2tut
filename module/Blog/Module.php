@@ -3,6 +3,9 @@
 namespace Blog;
 
 use Blog\Model\AlbumMapper;
+use Blog\Model\ArtistMapper;
+use Blog\Model\Album as AlbumEntity;
+use Blog\Model\Artist as ArtistEntity;
 
 class Module
 {
@@ -28,18 +31,34 @@ class Module
     public function getServiceConfig()
     {
         return array(
-//            'invokables' => array(
-//                'Blog\Form\Album' => 'Blog\Form\AlbumForm'
-//            ),
-            'factories' => array(
-                'Blog\Model\AlbumMapper' => function($sm)
-                {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table = new AlbumMapper($dbAdapter);
+            'invokables'              => array(
+                'Blog\Form\AlbumForm' => 'Blog\Form\AlbumForm'
+            ),
 
-                    return $table;
-                }),
-        );
+            'factories'               => array(
+
+                'Blog\Model\CommonMapper'  => function($sm)
+                {
+                    $dbAdapter = $sm->get('DbAdapter');
+                    $commonMapper = new CommonMapper($dbAdapter, $table = null);
+                    return $commonMapper;
+                },
+
+                'Blog\Model\AlbumMapper'  => function($sm)
+                {
+                    $dbAdapter = $sm->get('DbAdapter');
+                    $albumMapper = new AlbumMapper($dbAdapter, $table = null);
+                    return $albumMapper;
+                },
+
+                'Blog\Model\ArtistMapper' => function($sm)
+                {
+                    $dbAdapter = $sm->get('DbAdapter');
+                    $artistMapper = new ArtistMapper($dbAdapter, $table = null);
+                    return $artistMapper;
+                }
+
+            ));
     }
 
     public function getFormElementConfig()

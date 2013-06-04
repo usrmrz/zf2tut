@@ -4,68 +4,34 @@ namespace Blog\Model;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\TableGateway\AbstractTableGateway;
-
-//use Blog\Model\Album;
-use Blog\Model\Artist;
 use Zend\Db\Sql;
 
-//use Zend\Db\ResultSet\ResultSet;
 
 
-class ArtistMapper extends AbstractTableGateway
+class CommonMapper extends AbstractTableGateway
 {
-    protected $table = 'artist';
+    protected $table;
 
-    public function __construct(Adapter $adapter)
+    public function __construct(Adapter $adapter, $table = null)
     {
         $this->adapter = $adapter;
-
-//        $this->resultSetPrototype = new ResultSet();
-//        $this->resultSetPrototype->setArrayObjectPrototype(new Album());
-//        $this->resultSetPrototype->setArrayObjectPrototype(new Artist());
-
         $this->initialize();
     }
 
-    public function SelectTable()
+    protected function SelectTable()
     {
-        $select = new Sql\Select();
-        return $select->from($this->table);
-    }
-
-//    public function statementExecute($select)
-//    {
-//        $statement = $this->adapter->createStatement();
-//        $select->prepareStatement($this->adapter, $statement);
-//        return $result = $statement->execute();
-//    }
-
-    public function getLastId()
-    {
-        $LastId = $this->executeSelect($this->SelectTable()->columns(array('id' => new Sql\Expression('COUNT(id)'))));
-        return $LastId;
+        $table = $this->table;
+        return $select = new Sql\Select($table);
+//        return $select->from($table);
     }
 
     public function getColumnCount($column)
     {
         $count = iterator_to_array($this->executeSelect($this->SelectTable()
             ->columns(array($column => new Sql\Expression('COUNT(' . $column . ')')))));
-//        $LastId = iterator_to_array($LastId);
-//        var_dump($LastId[0]);
-        return $count[0];
+        return $count[0][$column];
     }
 
-// TODO: check Artist name in table
 
-    public function saveArtist(Artist $artist)
-    {
-//       var_dump($artist);
-        $data = array(
-            'name' => $artist->getName(),
-        );
-//        var_dump($data);
-        $this->insert($data);
-
-    }
 }
 
