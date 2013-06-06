@@ -15,12 +15,12 @@ class ArtistFieldset extends Fieldset implements InputFilterProviderInterface
         $this->setHydrator(new ClassMethodsHydrator(false))->setObject(new ArtistEntity());
 
         $this->add(array(
-            'name'       => 'name',
+            'name' => 'name',
             'attributes' => array(
-                'type'    => 'text',
-                'id'      => 'artist_name',
+                'type' => 'text',
+                'id' => 'artist_name',
             ),
-            'options'    => array(
+            'options' => array(
                 'label' => 'Artist',
             ),
         ));
@@ -30,14 +30,18 @@ class ArtistFieldset extends Fieldset implements InputFilterProviderInterface
     {
         return array(
             'name' => array(
-                'required'   => true,
-                'filters'    => array(
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'PregReplace',
+                        'options' => array(
+                            'pattern' => '/ {2,}/',
+                            'replacement' => ' ',
+                        )),
                     array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
+                    array('name' => 'StringTrim')),
                 'validators' => array(
                     array(
-                        'name'    => 'NotEmpty',
+                        'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
                                 'isEmpty' => 'Поле должно быть заполнено',
@@ -45,14 +49,14 @@ class ArtistFieldset extends Fieldset implements InputFilterProviderInterface
                         ),
                     ),
                     array(
-                        'name'    => 'StringLength',
+                        'name' => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 2,
-                            'max'      => 100,
+                            'min' => 2,
+                            'max' => 100,
                             'messages' => array(
-                                'stringLengthTooShort' => 'Введите имя автора от 2 до 100 символов!',
-                                'stringLengthTooLong'  => 'Введите имя автора от 2 до 100 символов!'
+                                'stringLengthTooShort' => 'Имя автора должно быть не менее 2 символов!',
+                                'stringLengthTooLong' => 'Имя автора должно быть не более 100 символов!'
                             ),
                         ),
                     ),

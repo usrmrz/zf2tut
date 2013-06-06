@@ -6,6 +6,7 @@ use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 use Blog\Model\Album as AlbumEntity;
+use Zend\Filter\PregReplace;
 
 
 class AlbumFieldset extends Fieldset implements InputFilterProviderInterface
@@ -38,9 +39,14 @@ class AlbumFieldset extends Fieldset implements InputFilterProviderInterface
             'title' => array(
                 'required'   => true,
                 'filters'    => array(
+                    array('name' => 'PregReplace',
+                    'options' => array(
+                        'pattern' => '/ {2,}/',
+                        'replacement' => ' ',
+                    )),
                     array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
+                    array('name' => 'StringTrim')),
+
                 'validators' => array(
                     array(
                         'name'    => 'NotEmpty',
@@ -51,14 +57,14 @@ class AlbumFieldset extends Fieldset implements InputFilterProviderInterface
                         ),
                     ),
                     array(
-                        'name' => 'StringLength',
+                        'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min' => 2,
-                            'max' => 100,
+                            'min'      => 2,
+                            'max'      => 100,
                             'messages' => array(
-                                'stringLengthTooShort' => 'Введите название альбома от 2 до 100 символов!',
-                                'stringLengthTooLong' => 'Введите название альбома от 2 до 100 символов!'
+                                'stringLengthTooShort' => 'Название альбома должно быть не менее 2 символов!',
+                                'stringLengthTooLong'  => 'Название альбома должно быть не более 100 символов!'
                             ),
                         ),
                     ),

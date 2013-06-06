@@ -7,8 +7,7 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql;
 
 
-
-class CommonMapper extends AbstractTableGateway
+class AbstractMapper extends AbstractTableGateway
 {
     protected $table;
 
@@ -20,9 +19,18 @@ class CommonMapper extends AbstractTableGateway
 
     protected function SelectTable()
     {
-        $table = $this->table;
-        return $select = new Sql\Select($table);
-//        return $select->from($table);
+        return $select = new Sql\Select($this->table);
+    }
+
+    protected function joinArtistName()
+    {
+        return $this->SelectTable()
+            ->join('artist', 'album.artist_id = artist.id', array('artist_id' => 'id', 'name'), 'left');
+    }
+
+    public function fetchAll($order)
+    {
+        return $rows = $this->executeSelect($this->joinArtistName()->order($order));
     }
 
     public function getColumnCount($column)
@@ -32,6 +40,10 @@ class CommonMapper extends AbstractTableGateway
         return $count[0][$column];
     }
 
+    public function deleteEntity($column, $row)
+    {
+        $this->delete(array($column => $row));
+    }
 
 }
 

@@ -1,27 +1,27 @@
 <?php
-$title = 'Albums';
+$title = 'Альбомы';
 $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
-    <a href="<?php echo $this->url('blog', array('action' => 'add')); ?>">Add new album</a>
+    <a href="<?php echo $this->url('blog', array('action' => 'add')); ?>">Добавить новый альбом</a>
 </p>
 
 <table class="table">
     <tr>
-        <th>Number</th>
-        <th>Title</th>
-        <th>Artist</th>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Исполнитель</th>
         <th>&nbsp;</th>
     </tr>
     <?php foreach ($albums as $album) : ?>
     <tr>
         <td><?php echo $this->escapeHtml($album['id']); ?></td>
-        <td><?php echo '<span>Album Title:</span>' . $this->escapeHtml($album['title']); ?></td>
-        <td><?php echo '<span>Artist: </span>' . $this->escapeHtml($album['name']) . ' (identifier: ' . $this->escapeHtml($album['artist_id']) . ')'; ?></td>
+        <td><?php echo '<span>Название альбома:</span>' . $this->escapeHtml($album['title']); ?></td>
+        <td><?php echo '<span>Исполнитель: </span>' . $this->escapeHtml($album['name']) . ' <span>(artist_id: ' . $this->escapeHtml($album['artist_id']) . ')</span>'; ?></td>
         <td>
-            <a href="<?php echo $this->url('blog', array('action' => 'edit', 'id' => $album['id'])); ?>">Edit</a><br />
-            <a href="<?php echo $this->url('blog', array('action' => 'delete', 'id' => $album['id'])); ?>">Delete</a>
+            <a href="<?php echo $this->url('blog', array('action' => 'edit', 'id' => $album['id'])); ?>">Редактировать</a><br />
+            <a href="<?php echo $this->url('blog', array('action' => 'delete', 'id' => $album['id'])); ?>">Удалить</a>
         </td>
     </tr>
     <?php endforeach; ?>

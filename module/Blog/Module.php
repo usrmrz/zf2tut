@@ -4,8 +4,9 @@ namespace Blog;
 
 use Blog\Model\AlbumMapper;
 use Blog\Model\ArtistMapper;
-use Blog\Model\Album as AlbumEntity;
-use Blog\Model\Artist as ArtistEntity;
+
+//use Blog\Model\Album as AlbumEntity;
+//use Blog\Model\Artist as ArtistEntity;
 
 class Module
 {
@@ -31,20 +32,20 @@ class Module
     public function getServiceConfig()
     {
         return array(
-            'invokables'              => array(
+            'invokables' => array(
                 'Blog\Form\AlbumForm' => 'Blog\Form\AlbumForm'
             ),
 
-            'factories'               => array(
+            'factories' => array(
 
-                'Blog\Model\CommonMapper'  => function($sm)
-                {
-                    $dbAdapter = $sm->get('DbAdapter');
-                    $commonMapper = new CommonMapper($dbAdapter, $table = null);
-                    return $commonMapper;
-                },
+//                'Blog\Model\CommonMapper'  => function($sm)
+//                {
+//                    $dbAdapter = $sm->get('DbAdapter');
+//                    $commonMapper = new CommonMapper($dbAdapter, $table = null);
+//                    return $commonMapper;
+//                },
 
-                'Blog\Model\AlbumMapper'  => function($sm)
+                'Blog\Model\AlbumMapper' => function($sm)
                 {
                     $dbAdapter = $sm->get('DbAdapter');
                     $albumMapper = new AlbumMapper($dbAdapter, $table = null);

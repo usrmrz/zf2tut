@@ -6,8 +6,8 @@ namespace Blog\Controller;
 //use Zend\Form\FormInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Blog\Model\Album;
-use Blog\Model\Artist;
+use Blog\Model\Album as AlbumEntity;
+use Blog\Model\Artist as ArtistEntity;
 use Blog\Form\AlbumForm;
 
 //use Blog\Form\AlbumFieldset;
@@ -25,38 +25,25 @@ class BlogController extends AbstractActionController
     {
         if (!$this->albumMapper) {
             $sm = $this->getServiceLocator();
-//            echo var_dump($sm);
             $this->albumMapper = $sm->get('Blog\Model\AlbumMapper');
         }
-//        echo var_dump($this->albumMapper);
         return $this->albumMapper;
     }
 
     public function getArtistMapper()
     {
-//        var_dump($this->artistMapper);
         if (!$this->artistMapper) {
             $sm = $this->getServiceLocator();
-//            echo var_dump($sm);
             $this->artistMapper = $sm->get('Blog\Model\ArtistMapper');
         }
-//        echo var_dump($this->artistMapper);
         return $this->artistMapper;
     }
 
     public function indexAction()
     {
-//        $id = 3;
         return new ViewModel(array(
-            'albums' => $this->getAlbumMapper()->fetchAll(),
+            'albums' => $this->getAlbumMapper()->fetchAllByASC(),
         ));
-
-//        $album = $this->getAlbumTable()->getAlbum($id);
-//        echo var_dump($album);
-//        return $album;//array(
-//            'album' => $album,
-//            'id' => $id,
-//        );
     }
 
     public function addAction()
@@ -64,41 +51,29 @@ class BlogController extends AbstractActionController
         $form = $this->getServiceLocator()->get('Blog\Form\AlbumForm');
 
         if ($this->getRequest()->isPost()) {
-            $form->bind($album = new Album());
+            $form->bind($album = new AlbumEntity());
             $form->setData($this->request->getPost());
 
             if ($form->isValid()) {
-                $artistName = str_replace('  ', ' ', $album->getArtist()->getName());
-                $albumTitle = str_replace('  ', ' ', $album->getTitle());
-//                $album = $album->setTitle($albumTitle);
-                $artist = new Artist();
+                $artistName = $album->getArtist()->getName();
+                $albumTitle = $album->getTitle();
+                $artist = new ArtistEntity();
                 $artist = $artist->setName($artistName);
-                $IdCountBeforeSave = $this->getArtistMapper()->getColumnCount('id');
-//                var_dump($artist);
                 $this->getArtistMapper()->saveArtist($artist);
-                $IdCountAfterSave = $this->getArtistMapper()->getColumnCount('id');
-//                var_dump($IdCountBeforeSave);
-//                var_dump($IdCountAfterSave);
-                if ($IdCountAfterSave > $IdCountBeforeSave) {
                     $artist_id = $this->getArtistMapper()->lastInsertValue;
+                if ($artist_id){
                     $album = $album->setArtistId($artist_id);
-//                    echo var_dump($artist_id);
                     $this->getAlbumMapper()->saveAlbum($album);
                 } else {
                     $artist_id = $this->getArtistMapper()->getArtistIdByName($artistName);
-//                    var_dump($artistName);
                     $album = $album->setTitle($albumTitle);
                     $album = $album->setArtistId($artist_id);
-////                    var_dump($album);
                     $this->getAlbumMapper()->saveAlbum($album);
                 }
-
                 return $this->redirect()->toRoute('blog');
             }
         }
-//            echo var_dump($form);
         return array('form' => $form);
-//        }
     }
 
     public function editAction()
@@ -134,24 +109,28 @@ class BlogController extends AbstractActionController
 
     public function deleteAction()
     {
-//        $id = (int)$this->params()->fromRoute('id');
-//        if(!$id){
-//            return $this->redirect()->toRoute('album');
-//        }
-//
-//        $request = $this->getRequest();
-//        if($request->isPost()){
-//            $del = $request->getPost()->get('del', 'Нет');
-//            if($del == 'Да'){
-//                $id = (int)$request->getPost()->get('id');
-//                $this->getAlbumTable()->deleteAlbum($id);
-//            }
-//
-//            return $this->redirect()->toRoute('album');
-//        }
-//        return array(
-//            'id' => $id,
-//            'album' => $this->getAlbumTable()->getAlbum($id),
-//        );
+        $id = (int)$this->params()->fromRoute('id');
+        if (!$id) {
+            return $this->redirect()->toRoute('blog');
+        }
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $del = $request->getPost()->get('del', 'НЕТ');
+            if ($del == 'ДА') {
+                $id = (int)$request->getPost()->get('id');
+                $artist_id = $this->getAlbumMapper()->getArtistId($id);
+                $this->getAlbumMapper()->deleteEntity('id', $id);
+                $artist_count = $this->getAlbumMapper()->getArtistCount($artist_id);
+                if (!$artist_count) {
+                    $this->getArtistMapper()->deleteEntity('id', $artist_id);
+                }
+            }
+            return $this->redirect()->toRoute('blog');
+        }
+        return array(
+            'id' => $id,
+            'album' => $this->getAlbumMapper()->getAlbum($id),
+        );
     }
 }

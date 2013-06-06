@@ -27,9 +27,9 @@ return array(
 
     'view_manager' => array(
         'template_map' => array(
-            'blog/blog/index'  => __DIR__ . '/../view/blog/index.phtml',
-            'blog/blog/add'    => __DIR__ . '/../view/blog/add.phtml',
-            'blog/blog/edit'   => __DIR__ . '/../view/blog/edit.phtml',
+            'blog/blog/index' => __DIR__ . '/../view/blog/index.phtml',
+            'blog/blog/add' => __DIR__ . '/../view/blog/add.phtml',
+            'blog/blog/edit' => __DIR__ . '/../view/blog/edit.phtml',
             'blog/blog/delete' => __DIR__ . '/../view/blog/delete.phtml',
         ),
         'template_path_stack' => array(
