@@ -60,8 +60,8 @@ class BlogController extends AbstractActionController
                 $artist = new ArtistEntity();
                 $artist = $artist->setName($artistName);
                 $this->getArtistMapper()->saveArtist($artist);
-                    $artist_id = $this->getArtistMapper()->lastInsertValue;
-                if ($artist_id){
+                $artist_id = $this->getArtistMapper()->lastInsertValue;
+                if ($artist_id) {
                     $album = $album->setArtistId($artist_id);
                     $this->getAlbumMapper()->saveAlbum($album);
                 } else {
@@ -78,36 +78,59 @@ class BlogController extends AbstractActionController
 
     public function editAction()
     {
-//        $id = (int) $this->params()->fromRoute('id', 0);
-//        if(!$id){
-//            return $this->redirect()->toRoute('album', array(
-//                'action' => 'add'
-//            ));
-//        }
-//        $album = $this->getAlbumTable()->getAlbum($id);
-//
-//        $form = new AlbumForm();
-//        $form->bind($album);
-//        $form->get('submit')->setAttribute('value', 'Edit');
-//
-//        $request = $this->getRequest();
-//        if ($request->isPost()){
-//            $form->setInputFilter($album->getInputFilter());
-//            $form->setData($request->getPost());
-//            if($form->isValid()){
-//                $this->getAlbumTable()->saveAlbum($album);
-//
-//                return $this->redirect()->toRoute('album');
-//            }
-//        }
-//
-//        return array(
-//            'id' => $id,
-//            'form' => $form,
-//        );
+        $id = (int)$this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('album', array(
+                'action' => 'add'
+            ));
+        }
+        $data = $this->getAlbumMapper()->getAlbum($id);
+        $album = new AlbumEntity();
+        $album->setId($id);
+        $album->setTitle($data['title']);
+        $album->setArtistId($data['artist_id']);
+        $album->getArtist()->setId($data['artist_id']);
+        $album->getArtist()->setName($data['name']);
+        $form = $this->getServiceLocator()->get('Blog\Form\AlbumForm');
+        $form->bind($album);
+        if ($this->getRequest()->isPost()) {
+            $form->setData($this->request->getPost());
+            if ($form->isValid()) {
+
+//                $artist = $album->getArtist();
+                $artistName = $album->getArtist()->getName();
+                if ($artistName !== $data['name']) {
+                    $findName = $this->getArtistMapper()->findArtistByName($artistName);
+                    if ($findName) {
+                        $album->setArtistId($findName['id']);
+                        $findMustDeleted = $this->getAlbumMapper()->findArtistId($data['artist_id']);
+//                        var_dump(count($findMustDeleted));
+                        if (count($findMustDeleted) <= 1) {
+                            $this->getArtistMapper()->deleteEntity('id', $data['artist_id']);
+                        }
+                    } else {
+                        $this->getArtistMapper()->saveArtist($album->getArtist());
+                        $artist_id = $this->getArtistMapper()->lastInsertValue;
+                        $album->setArtistId($artist_id);
+//                        $this->getArtistMapper()->updateArtist($album->getArtist());
+                    }
+                }
+                $title = $album->getTitle();
+                $artist_id = $album->getArtistId();
+                if ($title !== $data['title'] || $artist_id !== $data['artist_id']) {
+                    $this->getAlbumMapper()->updateAlbum($album);
+                }
+                return $this->redirect()->toRoute('blog');
+            }
+        }
+        return array(
+            'id' => $id,
+            'form' => $form,
+        );
     }
 
-    public function deleteAction()
+    public
+    function deleteAction()
     {
         $id = (int)$this->params()->fromRoute('id');
         if (!$id) {

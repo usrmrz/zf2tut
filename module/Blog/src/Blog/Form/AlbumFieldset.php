@@ -17,19 +17,25 @@ class AlbumFieldset extends Fieldset implements InputFilterProviderInterface
         $this->setHydrator(new ClassMethodsHydrator(false))->setObject(new AlbumEntity());
 
         $this->add(array(
-            'name'       => 'title',
+            'name' => 'title',
             'attributes' => array(
-                'type'    => 'text',
-                'id'      => 'album_title',
+                'type' => 'text',
+                'id' => 'album_title',
+                'class' => 'span5',
+                'placeholder' => 'Название',
+//                'hint' => 'Поле обязательно для заполнения',
             ),
-            'options'    => array(
+            'options' => array(
                 'label' => 'Album',
+//                'hint' => 'Hint',
+//                'prependIcon' => 'icon-heart',
+//                'appendIcon' => 'icon-glass',
             ),
         ));
 
         $this->add(array(
-            'type'    => 'Blog\Form\ArtistFieldset',
-            'name'    => 'artist',
+            'type' => 'Blog\Form\ArtistFieldset',
+            'name' => 'artist',
         ));
     }
 
@@ -37,19 +43,19 @@ class AlbumFieldset extends Fieldset implements InputFilterProviderInterface
     {
         return array(
             'title' => array(
-                'required'   => true,
-                'filters'    => array(
+                'required' => true,
+                'filters' => array(
                     array('name' => 'PregReplace',
-                    'options' => array(
-                        'pattern' => '/ {2,}/',
-                        'replacement' => ' ',
-                    )),
+                        'options' => array(
+                            'pattern' => '/ {2,}/',
+                            'replacement' => ' ',
+                        )),
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim')),
 
                 'validators' => array(
                     array(
-                        'name'    => 'NotEmpty',
+                        'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
                                 'isEmpty' => 'Поле должно быть заполнено',
@@ -57,14 +63,14 @@ class AlbumFieldset extends Fieldset implements InputFilterProviderInterface
                         ),
                     ),
                     array(
-                        'name'    => 'StringLength',
+                        'name' => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 2,
-                            'max'      => 100,
+                            'min' => 2,
+                            'max' => 100,
                             'messages' => array(
                                 'stringLengthTooShort' => 'Название альбома должно быть не менее 2 символов!',
-                                'stringLengthTooLong'  => 'Название альбома должно быть не более 100 символов!'
+                                'stringLengthTooLong' => 'Название альбома должно быть не более 100 символов!'
                             ),
                         ),
                     ),

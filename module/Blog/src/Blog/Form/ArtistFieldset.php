@@ -19,6 +19,8 @@ class ArtistFieldset extends Fieldset implements InputFilterProviderInterface
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'artist_name',
+                'class' => 'span4',
+                'placeholder' => 'Артист',
             ),
             'options' => array(
                 'label' => 'Artist',

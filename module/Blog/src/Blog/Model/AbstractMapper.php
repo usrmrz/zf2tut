@@ -22,6 +22,11 @@ class AbstractMapper extends AbstractTableGateway
         return $select = new Sql\Select($this->table);
     }
 
+    protected function UpdateTable()
+    {
+        return $select = new Sql\Update($this->table);
+    }
+
     protected function joinArtistName()
     {
         return $this->SelectTable()

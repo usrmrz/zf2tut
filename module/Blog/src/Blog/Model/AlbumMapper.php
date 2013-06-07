@@ -30,10 +30,18 @@ class AlbumMapper extends AbstractMapper
         return $result = iterator_to_array($this->executeSelect($select));
     }
 
+    public function findArtistId($artist_id)
+    {
+        $select = $this->SelectTable()->columns(array('artist_id' => 'artist_id'));
+        $select->where->like('artist_id', $artist_id);
+        $result = iterator_to_array($this->executeSelect($select));
+        return $result[0];
+    }
+
     public function findArtistIdByTitle($title)
     {
         $result = iterator_to_array($this->executeSelect($this->SelectTable()
-            ->columns(array('artist_id' => 'artist_id'))
+            ->columns(array('artist_id'))
             ->where(array('title' => $title))));
 
         $values = array();
@@ -62,6 +70,22 @@ class AlbumMapper extends AbstractMapper
                 }
             }
         }
+    }
+
+    public function updateAlbum($album){
+        $data = array(
+            'id' => $album->getId(),
+            'title' => $album->getTitle(),
+            'artist_id' => $album->getArtistId(),
+        );
+        $update = $this->updateTable();
+        $update->set($data);
+        $update->where(array('id' => $data['id']));
+        $this->executeUpdate($update);
+
+//        $upd = $this->updateTable()->where(array('id' => $data['id']));
+//        $this->executeUpdate($upd);
+//            $this->update($data);
     }
 
     public function getAlbum($id)

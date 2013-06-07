@@ -62,6 +62,15 @@ class Module
             ));
     }
 
+    public function getViewHelperConfig()
+    {
+        return array(
+            'invokables' => array(
+                'formelementerrors' => 'Blog\Form\View\Helper\FormElementErrors'
+            ),
+        );
+    }
+
     public function getFormElementConfig()
     {
         return array(

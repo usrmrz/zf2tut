@@ -4,10 +4,33 @@ $this->headTitle($title);
 ?>
 <h3><?php echo $this->escapeHtml($title); ?></h3>
 <?php
-//echo '<ul><li>';
 $form = $this->form;
 $form->setAttribute('id','add_form');
 $form->setAttribute('action', $this->url('blog', array('action' => 'add')))->prepare();
+
+if ($form->getMessages()):
+    ?>
+<div class="alert alert-error">
+    <button class="close" data-dismiss="alert" type="button">×</button>
+    <strong>Неверно введены данные!</strong>
+    Поля заполненны некорректно.
+</div>
+<?php elseif ($validData): ?>
+<div class="alert alert-success">
+    <button class="close" data-dismiss="alert" type="button">×</button>
+    <strong>Данные успешно отправлены!</strong>
+    Все поля формы заполненны корректно.
+</div>
+<?php echo($validData); ?>
+<?php else: ?>
+<div class="alert alert-info">
+    <button class="close" data-dismiss="alert" type="button">×</button>
+    <strong>Заполните форму:</strong>
+    Все слова должны быть не менее 2 и не более 100 символов.
+</div>
+<?php
+endif;
+
 echo $this->form()->openTag($form) . PHP_EOL;
 $album = $form->get('album');
 echo '<div>' . $this->formRow($album->get('title')) . '</div>' . PHP_EOL;
