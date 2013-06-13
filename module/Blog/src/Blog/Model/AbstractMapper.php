@@ -7,7 +7,7 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql;
 
 
-class AbstractMapper extends AbstractTableGateway
+abstract class AbstractMapper extends AbstractTableGateway
 {
     protected $table;
 
@@ -38,12 +38,12 @@ class AbstractMapper extends AbstractTableGateway
         return $rows = $this->executeSelect($this->joinArtistName()->order($order));
     }
 
-    public function getColumnCount($column)
-    {
-        $count = iterator_to_array($this->executeSelect($this->SelectTable()
-            ->columns(array($column => new Sql\Expression('COUNT(' . $column . ')')))));
-        return $count[0][$column];
-    }
+//    public function getColumnCount($column)
+//    {
+//        $count = iterator_to_array($this->executeSelect($this->SelectTable()
+//            ->columns(array($column => new Sql\Expression('COUNT(' . $column . ')')))));
+//        return $count[0][$column];
+//    }
 
     public function deleteEntity($column, $row)
     {

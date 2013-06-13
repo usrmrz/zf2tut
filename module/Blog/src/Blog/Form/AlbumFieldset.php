@@ -27,9 +27,6 @@ class AlbumFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'options' => array(
                 'label' => 'Album',
-//                'hint' => 'Hint',
-//                'prependIcon' => 'icon-heart',
-//                'appendIcon' => 'icon-glass',
             ),
         ));
 

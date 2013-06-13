@@ -6,17 +6,20 @@
  * @see https://github.com/zendframework/ZFTool
  */
 return array(
-    'modules' => array(
+    'modules'                 => array(
         'Application',
         'Album',
         'Blog',
+        'SanCaptcha',
+//        'DluTwBootstrapDemo',
+//        'Admin',
+//        'Rest',
 //        'SimpleModule',
-//        'PhlyBlog',
-//        'PhlyCommon',
-//        'Product',
+//        'ZendDeveloperTools',
+//        'BjyProfiler',
     ),
     'module_listener_options' => array(
-        'module_paths' => array(
+        'module_paths'      => array(
             './module',
             './vendor'
         ),

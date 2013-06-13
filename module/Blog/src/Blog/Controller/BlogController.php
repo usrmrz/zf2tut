@@ -42,7 +42,7 @@ class BlogController extends AbstractActionController
     public function indexAction()
     {
         return new ViewModel(array(
-            'albums' => $this->getAlbumMapper()->fetchAllByASC(),
+            'albums' => $this->getAlbumMapper()->fetchAllBy('DESC'),
         ));
     }
 
@@ -55,6 +55,12 @@ class BlogController extends AbstractActionController
             $form->setData($this->request->getPost());
 
             if ($form->isValid()) {
+//                $image = $form->captcha;
+//                    captcha->getImgDir() . $form->captcha->getId() . $form->captcha->getSuffix();
+//        var_dump($image);
+//                if (file_exists($image) == true) {
+//                    unlink($image);
+//                }
                 $artistName = $album->getArtist()->getName();
                 $albumTitle = $album->getTitle();
                 $artist = new ArtistEntity();
@@ -86,11 +92,8 @@ class BlogController extends AbstractActionController
         }
         $data = $this->getAlbumMapper()->getAlbum($id);
         $album = new AlbumEntity();
-        $album->setId($id);
-        $album->setTitle($data['title']);
-        $album->setArtistId($data['artist_id']);
-        $album->getArtist()->setId($data['artist_id']);
-        $album->getArtist()->setName($data['name']);
+        $album->setId($id)->setTitle($data['title'])->setArtistId($data['artist_id']);
+        $album->getArtist()->setId($data['artist_id'])->setName($data['name']);
         $form = $this->getServiceLocator()->get('Blog\Form\AlbumForm');
         $form->bind($album);
         if ($this->getRequest()->isPost()) {
@@ -103,9 +106,8 @@ class BlogController extends AbstractActionController
                     $findName = $this->getArtistMapper()->findArtistByName($artistName);
                     if ($findName) {
                         $album->setArtistId($findName['id']);
-                        $findMustDeleted = $this->getAlbumMapper()->findArtistId($data['artist_id']);
-//                        var_dump(count($findMustDeleted));
-                        if (count($findMustDeleted) <= 1) {
+                        $findThatMustDeleted = $this->getAlbumMapper()->findArtistId($data['artist_id']);
+                        if (count($findThatMustDeleted) == 1) {
                             $this->getArtistMapper()->deleteEntity('id', $data['artist_id']);
                         }
                     } else {
@@ -113,6 +115,11 @@ class BlogController extends AbstractActionController
                         $artist_id = $this->getArtistMapper()->lastInsertValue;
                         $album->setArtistId($artist_id);
 //                        $this->getArtistMapper()->updateArtist($album->getArtist());
+                    }
+                    $findThatMustDeleted = $this->getAlbumMapper()->findArtistId($data['artist_id']);
+
+                    if (count($findThatMustDeleted) == 1) {
+                        $this->getArtistMapper()->deleteEntity('id', $data['artist_id']);
                     }
                 }
                 $title = $album->getTitle();
@@ -129,8 +136,7 @@ class BlogController extends AbstractActionController
         );
     }
 
-    public
-    function deleteAction()
+    public function deleteAction()
     {
         $id = (int)$this->params()->fromRoute('id');
         if (!$id) {

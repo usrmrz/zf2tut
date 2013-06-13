@@ -6,9 +6,10 @@ use Zend\Form\Form;
 
 class AlbumForm extends Form
 {
-    public function __construct($name = null)
+    public function __construct()
     {
-        parent::__construct('album');
+        parent::__construct();
+
         $this->setAttribute('method', 'post');
         $this->add(array(
             'name' => 'id',
@@ -16,32 +17,33 @@ class AlbumForm extends Form
                 'type' => 'hidden',
             ),
         ));
-        $this->add(array(
-            'name' => 'artist',
-            'attributes' => array(
-                'type' => 'text',
-                'value' => 'Add artist here',
-            ),
-            'options' => array(
-                'label' => 'Artist',
-            ),
-        ));
+
         $this->add(array(
             'name' => 'title',
             'attributes' => array(
                 'type' => 'text',
             ),
             'options' => array(
-                'label' => 'Title',
-            ),
+                'label' => 'Album Title',
+            )
         ));
+
+        $this->add(array(
+            'name' => 'artist',
+            'attributes' => array(
+                'type' => 'text',
+                'options' => array(
+                    'label' => 'Artist Name'
+                )
+            )
+        ));
+
         $this->add(array(
             'name' => 'submit',
-            'attributes' => array(
+            'attribute' => array(
                 'type' => 'submit',
-                'value' => 'OK',
-                'id '=> 'submitbutton',
             ),
         ));
+
     }
 }

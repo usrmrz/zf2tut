@@ -66,16 +66,6 @@ class ArtistMapper extends AbstractMapper
         }
     }
 
-    public function updateArtist_old($artist){
-//        var_dump($artist);
-        $id = (int)$artist->getId();
-        $name = $artist->getName();
-
-
-        $this->updateTable()//->columns(array('name' => $name))
-            ->where(array('id' => $id));
-    }
-
     public function updateArtist($artist){
         $data = array(
             'id' => $artist->getId(),

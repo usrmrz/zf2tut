@@ -37,15 +37,15 @@ return array(
         ),
     ),
 
-    'view_helpers' => array(
-        'invokables' => array(
+//    'view_helpers' => array(
+//        'invokables' => array(
             // generic view helpers
 //            'truncate' => 'Zucchi\View\Helper\Truncate',
 
             // form based view helpers
-            'renderForm' => 'Blog\View\Helper\RenderForm',
+//            'renderForm' => 'Blog\View\Helper\RenderForm',
 //            'bootstrapRow' => 'Zucchi\Form\View\Helper\BootstrapRow',
 //            'bootstrapCollection' => 'Zucchi\Form\View\Helper\BootstrapCollection',
-        ),
-    ),
+//        ),
+//    ),
 );

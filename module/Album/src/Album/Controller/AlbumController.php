@@ -10,6 +10,7 @@ use Album\Form\AlbumForm;
 class AlbumController extends AbstractActionController
 {
     protected $albumTable;
+//    protected $artistTable;
 
     public function getAlbumTable()
     {
@@ -17,101 +18,55 @@ class AlbumController extends AbstractActionController
             $sm = $this->getServiceLocator();
             $this->albumTable = $sm->get('Album\Model\AlbumTable');
         }
+//        var_dump($this->albumTable);
         return $this->albumTable;
     }
 
+//    public function getArtistTable()
+//    {
+//        if(!$this->artistTable){
+//            $sm = $this->getServiceLocator();
+//            $this->artistTable = $sm->get('Album\Model\ArtistTable');
+//        }
+//        return $this->artistTable;
+//    }
+
     public function indexAction()
     {
+//        var_dump($this->getAlbumTable()->fetchAll());
         return new ViewModel(array(
             'albums' => $this->getAlbumTable()->fetchAll(),
-        ));
-    }
-
-    public function getAlbumAction()
-    {
-        $id = (int)$this->params()->fromRoute('id', 0);
-        if (!$id) {
-            return $this->redirect()->toRoute('album', array(
-                'action' => 'add'
-            ));
-        }
-        return new ViewModel(array(
-            'album' => $this->getAlbumTable()->getAlbum($id),
         ));
     }
 
     public function addAction()
     {
         $form = new AlbumForm();
-        $form->get('submit')->setValue('Add');
-
+        $form->get('submit')->setAttribute('value', 'Add album');
         $request = $this->getRequest();
         if ($request->isPost()) {
             $album = new Album();
             $form->setInputFilter($album->getInputFilter());
             $form->setData($request->getPost());
-
-            if ($form->isValid()) {
+            if ($form->isValid()){
                 $album->exchangeArray($form->getData());
                 $this->getAlbumTable()->saveAlbum($album);
 
                 return $this->redirect()->toRoute('album');
             }
         }
+
         return array('form' => $form);
+
     }
 
     public function editAction()
     {
-        $id = (int)$this->params()->fromRoute('id', 0);
-        if (!$id) {
-            return $this->redirect()->toRoute('album', array(
-                'action' => 'add'
-            ));
-        }
-        $album = $this->getAlbumTable()->getAlbum($id);
 
-        $form = new AlbumForm();
-        $form->bind($album);
-        $form->get('submit')->setAttribute('value', 'Edit');
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $form->setInputFilter($album->getInputFilter());
-            $form->setData($request->getPost());
-            if ($form->isValid()) {
-                $this->getAlbumTable()->saveAlbum($album);
-
-                return $this->redirect()->toRoute('album');
-            }
-        }
-
-        return array(
-            'id' => $id,
-            'form' => $form,
-        );
     }
 
     public function deleteAction()
     {
-        $id = (int)$this->params()->fromRoute('id');
-        if (!$id) {
-            return $this->redirect()->toRoute('album');
-        }
 
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $del = $request->getPost()->get('del', 'Нет');
-            if ($del == 'Да') {
-                $id = (int)$request->getPost()->get('id');
-                $this->getAlbumTable()->deleteAlbum($id);
-            }
-
-            return $this->redirect()->toRoute('album');
-        }
-        return array(
-            'id' => $id,
-            'album' => $this->getAlbumTable()->getAlbum($id),
-        );
     }
 }

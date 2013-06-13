@@ -18,16 +18,25 @@ class AlbumMapper extends AbstractMapper
         $this->initialize();
     }
 
-    public function fetchAllByASC()
+    public function fetchAllBy($order = null)
     {
-        return $result = $this->fetchAll('album.id ASC');
+        switch ($order) {
+            case 'DESC':
+                return $result = $this->fetchAll('album.id DESC');
+                break;
+            default:
+                return $result = $this->fetchAll('album.id ASC');
+                break;
+        }
+//        return $result = $this->fetchAll('album.id ASC');
     }
 
     public function findAlbumByTitle($title)
     {
         $select = $this->SelectTable()->columns(array('title' => 'title'));
         $select->where->like('title', $title);
-        return $result = iterator_to_array($this->executeSelect($select));
+        $result = iterator_to_array($this->executeSelect($select));
+        return $result;
     }
 
     public function findArtistId($artist_id)
@@ -35,7 +44,7 @@ class AlbumMapper extends AbstractMapper
         $select = $this->SelectTable()->columns(array('artist_id' => 'artist_id'));
         $select->where->like('artist_id', $artist_id);
         $result = iterator_to_array($this->executeSelect($select));
-        return $result[0];
+        return $result;
     }
 
     public function findArtistIdByTitle($title)
@@ -72,7 +81,8 @@ class AlbumMapper extends AbstractMapper
         }
     }
 
-    public function updateAlbum($album){
+    public function updateAlbum($album)
+    {
         $data = array(
             'id' => $album->getId(),
             'title' => $album->getTitle(),

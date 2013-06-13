@@ -66,7 +66,8 @@ class Module
     {
         return array(
             'invokables' => array(
-                'formelementerrors' => 'Blog\Form\View\Helper\FormElementErrors'
+                'formelementerrors' => 'Blog\Form\View\Helper\FormElementErrors',
+                'viewhelpercaptcha' => 'Blog\Form\View\Helper\Captcha\ViewHelperCaptcha',
             ),
         );
     }

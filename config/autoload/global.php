@@ -20,6 +20,10 @@ return array(
         ),
     ),
     'service_manager' => array(
+        'aliases' => array(
+            'DbAdapter' => 'Zend\Db\Adapter\Adapter',
+        ),
+
         'factories' => array(
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
         ),
