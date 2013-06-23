@@ -8,7 +8,7 @@
 return array(
     'modules'                 => array(
         'Application',
-        'Album',
+//        'Album',
         'Blog',
         'SanCaptcha',
 //        'DluTwBootstrapDemo',

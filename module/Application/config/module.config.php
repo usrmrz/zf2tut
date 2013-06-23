@@ -17,6 +17,7 @@ return array(
                     'defaults' => array(
                         'controller' => 'BlogController',
                         'action'     => 'index',
+//                        'id' => 'id',
                     ),
                 ),
             ),
@@ -64,43 +65,6 @@ return array(
         ),
     ),
 //    'navigation' => array(
-//        'default' => array(
-//            array(
-//                'label' => 'Home',
-//                'route' => 'home',
-//            ),
-//
-//            array(
-//                'label' => 'Blog',
-//                'route' => 'blog',
-//            ),
-//            array(
-//                'label' => 'Simple Module',
-//                'route' => 'blog',
-//            ),
-//
-//            array(
-//                'label' => 'Albums',
-//                'route' => 'album',
-//                'pages' => array(
-//                    array(
-//                        'label' => 'Add',
-//                        'route' => 'album',
-//                        'action' => 'add',
-//                    ),
-//                    array(
-//                        'label' => 'Edit',
-//                        'route' => 'album',
-//                        'action' => 'edit',
-//                    ),
-//                    array(
-//                        'label' => 'Delete',
-//                        'route' => 'album',
-//                        'action' => 'delete',
-//                    ),
-//                ),
-//            ),
-//        ),
 //    ),
     'translator'      => array(
         'locale'                    => 'en_US',

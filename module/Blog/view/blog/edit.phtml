@@ -2,15 +2,22 @@
 $title = 'Редактировать альбом';
 $this->headTitle($title);
 ?>
+
 <h3><?php echo $this->escapeHtml($title); ?></h3>
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('blog', array('action' => 'edit', 'id' => $this->id)))->prepare();
 echo $this->form()->openTag($form) . PHP_EOL;
-$album = $form->get('album');
-echo '<div>' . $this->formRow($album->get('title')) . '</div>' . PHP_EOL;
+$album = $form->get('album');?>
+
+<!--<div class="input-prepend">-->
+<!--    <span class="add-on">@</span>-->
+<!--    --><?php
+    echo '<div>' . $this->formRow($album->get('title')) . '</div>' . PHP_EOL;?>
+<!--</div>-->
+<?php
 $artist = $album->get('artist');
 echo '<div>' . $this->formRow($artist->get('name')) . '</div>' . PHP_EOL;
-echo '<div>' . $this->formRow($form->get('captcha')) . '</div>' . PHP_EOL;
+echo $this->formRow($form->get('captcha')) . PHP_EOL;
 echo '<div>' . $this->formElement($form->get('submit')->setValue('SAVE ALBUM')) . '</div>' . PHP_EOL;
 echo $this->form()->closeTag($form) . PHP_EOL;

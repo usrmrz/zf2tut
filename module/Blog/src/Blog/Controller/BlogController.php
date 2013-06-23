@@ -21,7 +21,7 @@ class BlogController extends AbstractActionController
     protected $artistMapper;
 
 
-    public function getAlbumMapper()
+    protected function getAlbumMapper()
     {
         if (!$this->albumMapper) {
             $sm = $this->getServiceLocator();
@@ -30,7 +30,7 @@ class BlogController extends AbstractActionController
         return $this->albumMapper;
     }
 
-    public function getArtistMapper()
+    protected function getArtistMapper()
     {
         if (!$this->artistMapper) {
             $sm = $this->getServiceLocator();
@@ -38,6 +38,16 @@ class BlogController extends AbstractActionController
         }
         return $this->artistMapper;
     }
+
+//    protected function deleteCaptcha()
+//    {
+//        $imgDir = './public/img/captcha/';
+//        if ($handle = opendir($imgDir)) {
+//            while (false !== ($file = readdir($handle)))
+//                if ($file != "." && $file != "..") unlink($imgDir . $file);
+//            closedir($handle);
+//        }
+//    }
 
     public function indexAction()
     {
@@ -49,18 +59,12 @@ class BlogController extends AbstractActionController
     public function addAction()
     {
         $form = $this->getServiceLocator()->get('Blog\Form\AlbumForm');
-
         if ($this->getRequest()->isPost()) {
             $form->bind($album = new AlbumEntity());
             $form->setData($this->request->getPost());
 
             if ($form->isValid()) {
-//                $image = $form->captcha;
-//                    captcha->getImgDir() . $form->captcha->getId() . $form->captcha->getSuffix();
-//        var_dump($image);
-//                if (file_exists($image) == true) {
-//                    unlink($image);
-//                }
+
                 $artistName = $album->getArtist()->getName();
                 $albumTitle = $album->getTitle();
                 $artist = new ArtistEntity();
@@ -95,12 +99,11 @@ class BlogController extends AbstractActionController
         $album->setId($id)->setTitle($data['title'])->setArtistId($data['artist_id']);
         $album->getArtist()->setId($data['artist_id'])->setName($data['name']);
         $form = $this->getServiceLocator()->get('Blog\Form\AlbumForm');
+//        $this->deleteCaptcha();
         $form->bind($album);
         if ($this->getRequest()->isPost()) {
             $form->setData($this->request->getPost());
             if ($form->isValid()) {
-
-//                $artist = $album->getArtist();
                 $artistName = $album->getArtist()->getName();
                 if ($artistName !== $data['name']) {
                     $findName = $this->getArtistMapper()->findArtistByName($artistName);
@@ -114,7 +117,6 @@ class BlogController extends AbstractActionController
                         $this->getArtistMapper()->saveArtist($album->getArtist());
                         $artist_id = $this->getArtistMapper()->lastInsertValue;
                         $album->setArtistId($artist_id);
-//                        $this->getArtistMapper()->updateArtist($album->getArtist());
                     }
                     $findThatMustDeleted = $this->getAlbumMapper()->findArtistId($data['artist_id']);
 
@@ -131,7 +133,7 @@ class BlogController extends AbstractActionController
             }
         }
         return array(
-            'id' => $id,
+            'id'   => $id,
             'form' => $form,
         );
     }
@@ -158,7 +160,7 @@ class BlogController extends AbstractActionController
             return $this->redirect()->toRoute('blog');
         }
         return array(
-            'id' => $id,
+            'id'    => $id,
             'album' => $this->getAlbumMapper()->getAlbum($id),
         );
     }

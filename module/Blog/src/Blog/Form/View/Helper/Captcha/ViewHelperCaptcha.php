@@ -2,6 +2,7 @@
 
 namespace Blog\Form\View\Helper\Captcha;
 
+use DirectoryIterator;
 use Zend\Form\View\Helper\Captcha\AbstractWord;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
@@ -21,7 +22,7 @@ class ViewHelperCaptcha extends AbstractWord
                 __METHOD__
             ));
         }
-        $captcha->setExpiration(10);
+//        $captcha->setExpiration(0);
         $captcha->setGcFreq(1);
         $captcha->generate();
         $imgAttributes = array(
@@ -58,6 +59,28 @@ class ViewHelperCaptcha extends AbstractWord
             return sprintf($pattern, $captchaInput, $separator, $img);
         }
         return sprintf($pattern, $img, $separator, $captchaInput);
+
+
+    }
+
+    public function gc($captcha){
+        $imgdir = $captcha->getImgDir();
+        if (!$imgdir || strlen($imgdir) < 2) {
+            // safety guard
+            return;
+        }
+
+//        $suffixLength = strlen($captcha->suffix);
+        foreach (new DirectoryIterator($imgdir) as $file) {
+            if (!$file->isDot() && !$file->isDir()) {
+                if (file_exists($file->getPathname())) {
+                    // only deletes files ending with $this->suffix
+//                    if (substr($file->getFilename(), -($suffixLength)) == $this->suffix) {
+                    unlink($file->getPathname());
+//                    }
+                }
+            }
+        }
 
     }
 }

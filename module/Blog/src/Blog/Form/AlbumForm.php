@@ -4,7 +4,7 @@ namespace Blog\Form;
 
 use Zend\Form\Form;
 //use Zend\Form\Element;
-use Zend\Form\Element\Captcha;
+//use Zend\Form\Element\Captcha;
 //use Zend\Form\Element\Select;
 use Zend\InputFilter\InputFilter;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
@@ -38,13 +38,17 @@ class AlbumForm extends Form
             'height'         => 50,
             'fsize'          => 20,
             'wordLen'        => 3,
-            'dotNoiseLevel'  => 1,
-            'lineNoiseLevel' => 1
+            'dotNoiseLevel'  => 50,
+            'lineNoiseLevel' => 3,
         ));
         $captchaImage->setImgDir('public/img/captcha/');
         $captchaImage->setImgUrl('/img/captcha/');
+//        $captchaImage->setImgDir($dirdata . '/captcha');
+//        echo var_dump($captchaImage);
+//        $captchaImage->setImgUrl('ROOT_PATH' . $dirdata . '/captcha');
         $captchaImage->setImgAlt('Подтвердите, что вы не робот');
 
+//        echo var_dump(ZF2Path);
 //          'public/img/captcha/' '/img/captcha/' http://zf2tut/img/captcha/05a8a08949b1932eb2aec78f9ac98688.png
         $this->add(array(
             'type'       => 'Zend\Form\Element\Captcha',
@@ -57,7 +61,14 @@ class AlbumForm extends Form
                 'class' => 'span2',
             )
         ));
+//        $imgDir = $captchaImage->getImgDir();
+//        var_dump($imgDir);
 
+//        $file = $fileList[2];
+//        var_dump($file);
+//        if (file_exists($file) == true) {
+//            unlink($file);
+//        }
         $this->add(array(
             'name'       => 'submit',
             'attributes' => array(

@@ -4,25 +4,29 @@ $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
-    <a href="<?php echo $this->url('blog', array('action' => 'add')); ?>">Добавить новый альбом</a>
+    <a class="btn" href="<?php echo $this->url('blog', array('action' => 'add')); ?>">Добавить новый альбом</a>
 </p>
 
-<table class="table">
+<table class="table table-bordered table-striped">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Название</th>
         <th>Исполнитель</th>
         <th>&nbsp;</th>
     </tr>
+    </thead>
+    <tbody class="">
     <?php foreach ($albums as $album) : ?>
     <tr>
         <td><?php echo $this->escapeHtml($album['id']); ?></td>
         <td><?php echo '<span>Название альбома:</span>' . $this->escapeHtml($album['title']); ?></td>
         <td><?php echo '<span>Исполнитель: </span>' . $this->escapeHtml($album['name']) . ' <span>(artist_id: ' . $this->escapeHtml($album['artist_id']) . ')</span>'; ?></td>
         <td>
-            <a href="<?php echo $this->url('blog', array('action' => 'edit', 'id' => $album['id'])); ?>">Редактировать</a><br />
-            <a href="<?php echo $this->url('blog', array('action' => 'delete', 'id' => $album['id'])); ?>">Удалить</a>
+            <a class="btn btn-success" href="<?php echo $this->url('blog', array('action' => 'edit', 'id' => $album['id'])); ?>">Редактировать</a>
+            <a class="btn btn-danger" href="<?php echo $this->url('blog', array('action' => 'delete', 'id' => $album['id'])); ?>">Удалить</a>
         </td>
     </tr>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </tbody>
 </table>

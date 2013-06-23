@@ -3,11 +3,11 @@
 namespace Blog\Model;
 
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\TableGateway\AbstractTableGateway;
+//use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql;
 use Blog\Model\Artist;
 
-use Zend\Db\ResultSet\ResultSet;
+//use Zend\Db\ResultSet\ResultSet;
 
 
 class ArtistMapper extends AbstractMapper
