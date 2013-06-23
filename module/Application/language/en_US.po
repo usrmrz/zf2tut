@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2013-05-16 19:55+0200\n"
+"PO-Revision-Date: 2013-06-06 23:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -17,19 +17,63 @@ msgstr ""
 
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
 msgid "Skeleton Application"
-msgstr "Tutorial"
+msgstr "Просто так"
 
-#: ../view/layout/layout.phtml:34
+#: ../config/layout/layout.phtml:7
 msgid "Home"
 msgstr "Главная"
 
-#: ../view/layout/layout.phtml:35
+#: ../config/navigation.config.php:12
+msgid "Blog"
+msgstr "Блог"
+
+#: ../config/navigation.config.php:16
+msgid "Simple Module"
+msgstr "Просто Модуль"
+
+#: ../config/navigation.config.php:21
 msgid "Albums"
 msgstr "Альбомы"
 
-#: ../view/layout/layout.phtml:50
+#: ../view/layout/layout.phtml:46
 msgid "All rights reserved."
-msgstr ""
+msgstr "Все авторские права соблюдаются."
+
+#: ../../Blog/src/Blog/Form/AlbumFieldset:102
+msgid "Album"
+msgstr "Альбом"
+
+#: ../../Blog/src/Blog/Form/ArtistFieldset:103
+msgid "Artist"
+msgstr "Исполнитель"
+
+#: ../../Blog/view/blog/delete.phtml:16
+msgid "YES"
+msgstr "ДА"
+
+#: ../../Blog/view/blog/delete.phtml:17
+msgid "NO"
+msgstr "НЕТ"
+
+#: ../../Blog/view/blog/delete:7
+msgid "Something"
+msgstr "Что то"
+
+#: ../../Blog/view/blog/index.phtml:12
+msgid "ID"
+msgstr "НОМЕР"
+
+#: ../../Blog/src/Blog/Form/ArtistFieldset:104
+msgid "ADD ALBUM"
+msgstr "ДОБАВИТЬ АЛЬБОМ"
+
+#: ../../Blog/view/blog/add.phtml:12
+msgid "ADD ANOTHER ALBUM"
+msgstr "ДОБАВИТЬ"
+
+#: ../../Blog/view/blog/edit.phtml:12
+msgid "SAVE ALBUM"
+msgstr "СОХРАНИТЬ"
 
 #: ../view/application/index/index.phtml:2
 #, php-format

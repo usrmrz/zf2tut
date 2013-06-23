@@ -1,0 +1,19 @@
+<?php
+$title = 'Удалить альбом';
+$this->headTitle($title);
+?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+
+<p>Вы уверены, что хотите удалить</p>
+<p>альбом '<strong><?php echo $this->escapeHtml($album->title); ?></strong>'</p>
+<p>автора '<strong><?php echo $this->escapeHtml($album->name); ?></strong>'?</p>
+
+<?php
+$url = $this->url('blog', array('action' => 'delete', 'id' => $this->id)); ?>
+<form action="<?php echo $url; ?>" method="post">
+    <div>
+        <input type="hidden" name="id" value="<?php echo (int)$album->id; ?>"/>
+        <input class="btn btn-success" type="submit" name="del" value="<?php echo $this->translate('YES');?>"/>
+        <input class="btn btn-success" type="submit" name="del" value="<?php echo $this->translate('NO');?>"/>
+    </div>
+</form>

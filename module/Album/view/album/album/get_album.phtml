@@ -1,0 +1,29 @@
+<?php
+$title = 'Album';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('blog', array('action' => 'add')); ?>">Add new album</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Number</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>&nbsp;</th>
+    </tr>
+<!--    --><?php //foreach ($row as $album) : ?>
+
+    <tr>
+        <td><?php echo $this->escapeHtml($album['id']); ?></td>
+        <td><?php echo $this->escapeHtml($album['title']); ?></td>
+        <td><?php echo $this->escapeHtml($album['name']); ?></td>
+        <td>
+            <a href="<?php echo $this->url('album', array('action' => 'index',)); ?>">Back to list&nbsp;</a>
+            <a href="<?php echo $this->url('album', array('action' => 'delete', 'id' => $album['id'])); ?>">Delete</a>
+        </td>
+    </tr>
+<!--    --><?php //endforeach; ?>
+</table>
