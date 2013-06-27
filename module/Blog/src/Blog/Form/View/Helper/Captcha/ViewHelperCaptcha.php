@@ -12,7 +12,7 @@ class ViewHelperCaptcha extends AbstractWord
 {
     public function render(ElementInterface $element)
     {
-        $this->setSeparator('<br />');
+        $this->setSeparator('');
 
         $captcha = $element->getCaptcha();
 
