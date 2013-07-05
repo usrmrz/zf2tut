@@ -8,9 +8,11 @@
 return array(
     'modules'                 => array(
         'Application',
-//        'Album',
+        'Album',
         'Blog',
         'SanCaptcha',
+        'ZfcBase',
+        'ZfcUser',
 //        'DluTwBootstrapDemo',
 //        'Admin',
 //        'Rest',
